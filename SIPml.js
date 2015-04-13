@@ -815,8 +815,13 @@ SIPml.Stack = function (o_conf) {
         //      WSS: 10062, 11062, 12062, 13062, 14062
         //
 
-        i_port = (o_conf.enable_rtcweb_breaker ? 10062 : 10060) + (((new Date().getTime()) % 5) * 1000);
-        s_proxy = "ns313841.ovh.net";
+        if (o_conf.rtcweb_breaker_port && o_conf.rtcweb_breaker_host) {
+            i_port = o_conf.rtcweb_breaker_port;
+            s_proxy = o_conf.rtcweb_breaker_host;
+        } else {
+            i_port = (o_conf.enable_rtcweb_breaker ? 10062 : 10060) + (((new Date().getTime()) % 5) * 1000);
+            s_proxy = "ns313841.ovh.net";
+        }
     }
 
     // create the stack
